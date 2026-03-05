@@ -338,8 +338,8 @@ const HeroSection = () => {
     target: ref,
     offset: ["start start", "end start"]
   })
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
   // Tech icons for floating animation
   const techIcons = [
@@ -360,15 +360,15 @@ const HeroSection = () => {
       <div className="absolute inset-0 grid-pattern opacity-30" />
 
       {/* Floating Tech Icons - Desktop Only */}
-      <div className="hidden lg:block absolute inset-0 pointer-events-none">
+      <div className="hidden xl:block absolute inset-0 pointer-events-none">
         {techIcons.map((tech, i) => {
           const positions = [
-            { top: '15%', left: '10%' },
-            { top: '25%', right: '12%' },
-            { top: '60%', left: '8%' },
-            { top: '70%', right: '10%' },
-            { top: '40%', left: '5%' },
-            { top: '45%', right: '5%' },
+            { top: '20%', left: '8%' },
+            { top: '30%', right: '10%' },
+            { top: '55%', left: '6%' },
+            { top: '65%', right: '8%' },
+            { top: '35%', left: '4%' },
+            { top: '40%', right: '4%' },
           ]
           return (
             <motion.div
@@ -398,16 +398,16 @@ const HeroSection = () => {
       
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 text-center px-4 max-w-4xl mx-auto"
+        className="relative z-10 text-center px-4 max-w-3xl mx-auto w-full"
       >
         {/* Profile Photo with Anime Style */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
-          className="mb-4 sm:mb-6"
+          className="mb-3 sm:mb-4"
         >
-          <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 mx-auto">
+          <div className="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 mx-auto">
             {/* Animated glow rings */}
             <motion.div
               className="absolute inset-0 rounded-full"
@@ -426,37 +426,14 @@ const HeroSection = () => {
               className="relative z-10 rounded-full object-cover p-1 w-full h-full"
               priority
             />
-            {/* Floating particles around photo - hidden on mobile */}
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-2 h-2 rounded-full bg-[#00f5ff] hidden sm:block"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                }}
-                animate={{
-                  x: [0, Math.cos(i * 60 * Math.PI / 180) * 100],
-                  y: [0, Math.sin(i * 60 * Math.PI / 180) * 100],
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  delay: i * 0.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-            ))}
           </div>
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-3xl sm:text-5xl lg:text-6xl font-bold mb-3 tracking-tight"
+          className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-2 tracking-tight"
         >
           <span className="text-white">Hi, I&apos;m </span>
           <GlitchText text={CONFIG.name} className="gradient-text" />
@@ -465,13 +442,13 @@ const HeroSection = () => {
         {/* Availability Badge */}
         {CONFIG.showAvailability && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-3"
+            className="mb-2"
           >
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-xs sm:text-sm backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-400 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-xs backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
               {CONFIG.availabilityText}
             </span>
           </motion.div>
@@ -481,16 +458,16 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-lg sm:text-xl lg:text-2xl text-[#00f5ff] font-mono mb-4 h-8"
+          className="text-base sm:text-lg lg:text-xl text-[#00f5ff] font-mono mb-3 h-6"
         >
           <span className="typing-cursor">{typedText}</span>
         </motion.div>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-gray-400 max-w-xl mx-auto text-sm sm:text-base mb-6 sm:mb-8 px-4 leading-relaxed"
+          className="text-gray-400 max-w-md mx-auto text-sm mb-4 px-2 leading-relaxed"
         >
           Crafting intelligent solutions through machine learning and AI. 
           Transforming complex data into actionable insights.
@@ -498,18 +475,18 @@ const HeroSection = () => {
 
         {/* Tech Stack Pills */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.55 }}
-          className="flex flex-wrap justify-center gap-2 mb-6 sm:mb-8 px-4"
+          className="flex flex-wrap justify-center gap-1.5 mb-4 px-2"
         >
           {['Python', 'TensorFlow', 'NLP', 'RAG', 'ML'].map((tech, i) => (
             <motion.span
               key={tech}
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6 + i * 0.1 }}
-              className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300 hover:border-[#00f5ff]/50 hover:text-[#00f5ff] transition-all cursor-default"
+              transition={{ delay: 0.6 + i * 0.08 }}
+              className="px-2.5 py-0.5 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300 hover:border-[#00f5ff]/50 hover:text-[#00f5ff] transition-all cursor-default"
             >
               {tech}
             </motion.span>
@@ -517,29 +494,29 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3 px-2"
         >
           <motion.a
             href="#projects"
-            className="group relative px-6 sm:px-8 py-2.5 sm:py-3 rounded-full overflow-hidden w-full sm:w-auto"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="group relative px-5 sm:px-6 py-2 rounded-full overflow-hidden w-full sm:w-auto"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[#00f5ff] to-[#b026ff]" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#b026ff] to-[#ff2d95] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative text-black font-semibold flex items-center justify-center gap-2 text-sm sm:text-base">
+            <span className="relative text-black font-semibold flex items-center justify-center gap-2 text-sm">
               <Terminal className="w-4 h-4" />
               View Projects
             </span>
           </motion.a>
           <motion.a
             href="#contact"
-            className="group px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-white/20 text-white hover:border-[#00f5ff]/50 transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm bg-white/5 w-full sm:w-auto text-sm sm:text-base"
-            whileHover={{ scale: 1.05, backgroundColor: 'rgba(0, 245, 255, 0.1)' }}
-            whileTap={{ scale: 0.95 }}
+            className="group px-5 sm:px-6 py-2 rounded-full border border-white/20 text-white hover:border-[#00f5ff]/50 transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm bg-white/5 w-full sm:w-auto text-sm"
+            whileHover={{ scale: 1.03, backgroundColor: 'rgba(0, 245, 255, 0.1)' }}
+            whileTap={{ scale: 0.97 }}
           >
             <Mail className="w-4 h-4" />
             Get in Touch
@@ -550,20 +527,20 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-8 sm:mt-12"
+          transition={{ duration: 0.6, delay: 0.9 }}
+          className="mt-6 sm:mt-8"
         >
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
             className="cursor-pointer"
             onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <div className="w-6 h-10 rounded-full border-2 border-[#00f5ff]/30 flex items-start justify-center p-2 mx-auto">
+            <div className="w-5 h-8 rounded-full border-2 border-[#00f5ff]/30 flex items-start justify-center p-1.5 mx-auto">
               <motion.div
-                animate={{ y: [0, 6, 0] }}
+                animate={{ y: [0, 4, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
-                className="w-1.5 h-1.5 rounded-full bg-[#00f5ff]"
+                className="w-1 h-1.5 rounded-full bg-[#00f5ff]"
               />
             </div>
           </motion.div>
@@ -576,72 +553,71 @@ const HeroSection = () => {
 // About Section
 const AboutSection = () => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "-50px" })
 
   const stats = [
-    { icon: Calendar, value: '3+', label: 'Years Experience', color: '#00f5ff' },
-    { icon: Award, value: '6+', label: 'Major Projects', color: '#b026ff' },
-    { icon: Users, value: '7', label: 'Team Members', color: '#ff2d95' },
+    { icon: Calendar, value: '3+', label: 'Years Exp', color: '#00f5ff' },
+    { icon: Award, value: '6+', label: 'Projects', color: '#b026ff' },
+    { icon: Users, value: '7', label: 'Team Size', color: '#ff2d95' },
     { icon: BookOpen, value: '4', label: 'Languages', color: '#39ff14' }
   ]
 
   return (
-    <section id="about" className="relative py-24 px-4 overflow-hidden">
+    <section id="about" className="relative py-16 sm:py-20 px-4 overflow-hidden">
       <div className="absolute inset-0 circuit-pattern opacity-20" />
       
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-5xl mx-auto relative z-10">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-10"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">
             About <span className="gradient-text">Me</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#00f5ff] to-[#b026ff] mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-gradient-to-r from-[#00f5ff] to-[#b026ff] mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#00f5ff] to-[#b026ff] rounded-3xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-              <div className="relative tech-card rounded-3xl p-8 backdrop-blur-xl">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00f5ff] to-[#b026ff] flex items-center justify-center shadow-lg shadow-[#00f5ff]/20">
-                    <Brain className="w-7 h-7 text-black" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#00f5ff] to-[#b026ff] rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
+              <div className="relative tech-card rounded-2xl p-5 sm:p-6 backdrop-blur-xl">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00f5ff] to-[#b026ff] flex items-center justify-center shadow-lg shadow-[#00f5ff]/20">
+                    <Brain className="w-6 h-6 text-black" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white">Data Scientist</h3>
+                    <h3 className="text-lg font-bold text-white">Data Scientist</h3>
                     <p className="text-gray-400 text-sm">6D Technologies Ltd</p>
                   </div>
                 </div>
                 
-                <p className="text-gray-300 leading-relaxed mb-6 text-lg">
-                  Results-oriented Data Scientist with 3+ years of experience building scalable ML models 
-                  for customer segmentation, recommendation systems, and conversational AI. Proven expertise 
-                  in translating business problems into data-driven solutions.
+                <p className="text-gray-300 leading-relaxed mb-4 text-sm sm:text-base">
+                  Results-oriented Data Scientist with 3+ years building scalable ML models 
+                  for customer segmentation, recommendation systems, and conversational AI.
                 </p>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <MapPin className="w-4 h-4 text-[#00f5ff]" />
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+                    <MapPin className="w-3.5 h-3.5 text-[#00f5ff]" />
                     Bengaluru, India
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <GraduationCap className="w-4 h-4 text-[#00f5ff]" />
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+                    <GraduationCap className="w-3.5 h-3.5 text-[#00f5ff]" />
                     B.E. CGPA: 7.91/10
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {['English', 'Kannada', 'Marathi', 'Hindi'].map((lang) => (
-                    <span key={lang} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">
+                    <span key={lang} className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">
                       {lang}
                     </span>
                   ))}
@@ -651,26 +627,26 @@ const AboutSection = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-2 gap-4"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-2 gap-3"
           >
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                transition={{ duration: 0.4, delay: 0.3 + index * 0.08 }}
                 className="group relative"
               >
-                <div className="absolute -inset-0.5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                <div className="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{ background: `linear-gradient(135deg, ${stat.color}40, transparent)` }}
                 />
-                <div className="relative tech-card rounded-2xl p-6 text-center backdrop-blur-xl border border-white/5">
-                  <stat.icon className="w-8 h-8 mx-auto mb-3" style={{ color: stat.color }} />
-                  <div className="text-4xl font-bold gradient-text mb-1">{stat.value}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                <div className="relative tech-card rounded-xl p-4 text-center backdrop-blur-xl border border-white/5">
+                  <stat.icon className="w-6 h-6 sm:w-7 sm:h-7 mx-auto mb-2" style={{ color: stat.color }} />
+                  <div className="text-2xl sm:text-3xl font-bold gradient-text mb-0.5">{stat.value}</div>
+                  <div className="text-xs text-gray-400">{stat.label}</div>
                 </div>
               </motion.div>
             ))}
@@ -679,38 +655,38 @@ const AboutSection = () => {
 
         {/* Experience Timeline */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-20"
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-10"
         >
-          <h3 className="text-2xl font-bold text-center mb-10">
+          <h3 className="text-xl font-bold text-center mb-6">
             <span className="gradient-text">Experience</span>
           </h3>
           
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#00f5ff]/20 to-[#b026ff]/20 rounded-3xl blur-xl opacity-50" />
-            <div className="relative tech-card rounded-3xl p-8 max-w-3xl mx-auto backdrop-blur-xl">
-              <div className="flex items-start gap-5">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00f5ff] to-[#b026ff] flex items-center justify-center shrink-0 shadow-lg shadow-[#00f5ff]/20">
-                  <Server className="w-7 h-7 text-black" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#00f5ff]/20 to-[#b026ff]/20 rounded-2xl blur-xl opacity-50" />
+            <div className="relative tech-card rounded-2xl p-5 sm:p-6 max-w-2xl mx-auto backdrop-blur-xl">
+              <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00f5ff] to-[#b026ff] flex items-center justify-center shrink-0 shadow-lg shadow-[#00f5ff]/20 mx-auto sm:mx-0">
+                  <Server className="w-6 h-6 text-black" />
                 </div>
-                <div className="flex-1">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
-                    <h4 className="text-xl font-bold text-white">Data Scientist</h4>
-                    <span className="text-[#00f5ff] text-sm font-mono bg-[#00f5ff]/10 px-3 py-1 rounded-full">Jan 2023 — Present</span>
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
+                    <h4 className="text-lg font-bold text-white">Data Scientist</h4>
+                    <span className="text-[#00f5ff] text-xs font-mono bg-[#00f5ff]/10 px-2.5 py-1 rounded-full">Jan 2023 — Present</span>
                   </div>
-                  <p className="text-gray-400 mb-5">6D Technologies Ltd, Bengaluru</p>
-                  <ul className="space-y-3 text-gray-300 text-sm">
+                  <p className="text-gray-400 mb-4 text-sm">6D Technologies Ltd, Bengaluru</p>
+                  <ul className="space-y-2 text-gray-300 text-xs sm:text-sm text-left">
                     {[
-                      'Developed customer segmentation models for targeted marketing',
-                      'Built product recommendation engines using matrix factorization',
-                      'Designed RAG-based chatbots for customer value management',
-                      'Created Text-to-Rule systems for dynamic business rule generation',
-                      'Automated business processes using N8N and Seahorse Workflow'
+                      'Customer segmentation models for targeted marketing',
+                      'Product recommendation engines using matrix factorization',
+                      'RAG-based chatbots for customer value management',
+                      'Text-to-Rule systems for dynamic business rules',
+                      'ML workflow automation with N8N and Seahorse'
                     ].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <Zap className="w-4 h-4 text-[#00f5ff] mt-0.5 shrink-0" />
+                      <li key={i} className="flex items-start gap-2">
+                        <Zap className="w-3.5 h-3.5 text-[#00f5ff] mt-0.5 shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -1044,8 +1020,8 @@ const ContactSection = () => {
   const contactInfo = [
     { icon: Phone, label: 'Phone', value: '+91 9187585706', href: 'tel:+919187585706' },
     { icon: Mail, label: 'Email', value: 'prathameshece2022@gmail.com', href: 'mailto:prathameshece2022@gmail.com' },
-    { icon: Linkedin, label: 'LinkedIn', value: 'LinkedIn Profile', href: 'https://linkedin.com/in/prathameshpatil' },
-    { icon: Github, label: 'GitHub', value: 'GitHub Profile', href: 'https://github.com/prathameshpatil' }
+    { icon: Linkedin, label: 'LinkedIn', value: 'LinkedIn Profile', href: 'https://www.linkedin.com/in/prathamesh-m-patil-810024229' },
+    { icon: Github, label: 'GitHub', value: 'GitHub Profile', href: 'https://github.com/Pratham0145' }
   ]
 
   return (
@@ -1236,8 +1212,8 @@ const Footer = () => {
           
           <div className="flex items-center gap-4">
             {[
-              { icon: Github, href: 'https://github.com/prathameshpatil' },
-              { icon: Linkedin, href: 'https://linkedin.com/in/prathameshpatil' },
+              { icon: Github, href: 'https://github.com/Pratham0145' },
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/prathamesh-m-patil-810024229' },
               { icon: Mail, href: 'mailto:prathameshece2022@gmail.com' }
             ].map((social, i) => (
               <motion.a
