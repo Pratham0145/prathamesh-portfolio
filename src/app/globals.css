@@ -142,6 +142,7 @@
   }
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
   }
 }
 
@@ -529,4 +530,59 @@ input:focus, textarea:focus {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
+}
+
+/* Floating animation for icons */
+@keyframes icon-float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  25% { 
+    transform: translateY(-10px) rotate(2deg); 
+  }
+  75% { 
+    transform: translateY(5px) rotate(-2deg); 
+  }
+}
+
+.icon-float {
+  animation: icon-float 6s ease-in-out infinite;
+}
+
+/* Gradient border animation */
+@keyframes border-rotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #00f5ff, #b026ff, #ff2d95, #00f5ff);
+  background-size: 300% 300%;
+  animation: border-rotate 4s linear infinite;
+  z-index: -1;
+}
+
+/* Glow pulse for cards */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 245, 255, 0.1),
+                0 0 10px rgba(0, 245, 255, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.2),
+                0 0 40px rgba(176, 38, 255, 0.1);
+  }
+}
+
+.glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
 }

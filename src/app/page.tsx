@@ -341,26 +341,73 @@ const HeroSection = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
+  // Tech icons for floating animation
+  const techIcons = [
+    { name: 'Python', icon: '🐍', delay: 0 },
+    { name: 'TensorFlow', icon: '🧠', delay: 0.5 },
+    { name: 'ML', icon: '📊', delay: 1 },
+    { name: 'AI', icon: '🤖', delay: 1.5 },
+    { name: 'Data', icon: '📈', delay: 2 },
+    { name: 'Code', icon: '💻', delay: 2.5 },
+  ]
+
   return (
-    <section id="hero" ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-16">
+    <section id="hero" ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <FloatingOrbs />
       <Particles />
       
       {/* Grid overlay */}
       <div className="absolute inset-0 grid-pattern opacity-30" />
+
+      {/* Floating Tech Icons - Desktop Only */}
+      <div className="hidden lg:block absolute inset-0 pointer-events-none">
+        {techIcons.map((tech, i) => {
+          const positions = [
+            { top: '15%', left: '10%' },
+            { top: '25%', right: '12%' },
+            { top: '60%', left: '8%' },
+            { top: '70%', right: '10%' },
+            { top: '40%', left: '5%' },
+            { top: '45%', right: '5%' },
+          ]
+          return (
+            <motion.div
+              key={tech.name}
+              className="absolute text-3xl"
+              style={positions[i]}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ 
+                opacity: [0.3, 0.6, 0.3], 
+                scale: [1, 1.1, 1],
+                y: [0, -15, 0]
+              }}
+              transition={{ 
+                duration: 4, 
+                delay: tech.delay,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <div className="w-14 h-14 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center">
+                <span>{tech.icon}</span>
+              </div>
+            </motion.div>
+          )
+        })}
+      </div>
       
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 text-center px-4 py-8"
+        className="relative z-10 text-center px-4 max-w-4xl mx-auto"
       >
         {/* Profile Photo with Anime Style */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
-          className="mb-6 mt-4"
+          className="mb-4 sm:mb-6"
         >
-          <div className="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-52 lg:h-52 mx-auto">
+          <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 mx-auto">
             {/* Animated glow rings */}
             <motion.div
               className="absolute inset-0 rounded-full"
@@ -379,7 +426,7 @@ const HeroSection = () => {
               className="relative z-10 rounded-full object-cover p-1 w-full h-full"
               priority
             />
-            {/* Floating particles around photo */}
+            {/* Floating particles around photo - hidden on mobile */}
             {[...Array(6)].map((_, i) => (
               <motion.div
                 key={i}
@@ -389,8 +436,8 @@ const HeroSection = () => {
                   left: '50%',
                 }}
                 animate={{
-                  x: [0, Math.cos(i * 60 * Math.PI / 180) * 120],
-                  y: [0, Math.sin(i * 60 * Math.PI / 180) * 120],
+                  x: [0, Math.cos(i * 60 * Math.PI / 180) * 100],
+                  y: [0, Math.sin(i * 60 * Math.PI / 180) * 100],
                   opacity: [0, 1, 0],
                   scale: [0, 1, 0],
                 }}
@@ -409,23 +456,21 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 tracking-tight"
+          className="text-3xl sm:text-5xl lg:text-6xl font-bold mb-3 tracking-tight"
         >
           <span className="text-white">Hi, I&apos;m </span>
-          <span className="block mt-2">
-            <GlitchText text={CONFIG.name} className="gradient-text" />
-          </span>
+          <GlitchText text={CONFIG.name} className="gradient-text" />
         </motion.h1>
 
-        {/* Availability Badge - Configurable */}
+        {/* Availability Badge */}
         {CONFIG.showAvailability && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-4"
+            className="mb-3"
           >
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/5 border border-white/10 text-[#00f5ff] text-xs sm:text-sm backdrop-blur-sm">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-xs sm:text-sm backdrop-blur-sm">
               <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-400 animate-pulse" />
               {CONFIG.availabilityText}
             </span>
@@ -436,7 +481,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-[#00f5ff] font-mono mb-6 sm:mb-8 h-8 sm:h-10"
+          className="text-lg sm:text-xl lg:text-2xl text-[#00f5ff] font-mono mb-4 h-8"
         >
           <span className="typing-cursor">{typedText}</span>
         </motion.div>
@@ -445,34 +490,54 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base lg:text-lg mb-6 sm:mb-10 px-2 sm:px-4 leading-relaxed"
+          className="text-gray-400 max-w-xl mx-auto text-sm sm:text-base mb-6 sm:mb-8 px-4 leading-relaxed"
         >
           Crafting intelligent solutions through machine learning and AI. 
-          Transforming complex data into actionable insights that drive business growth.
+          Transforming complex data into actionable insights.
         </motion.p>
+
+        {/* Tech Stack Pills */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55 }}
+          className="flex flex-wrap justify-center gap-2 mb-6 sm:mb-8 px-4"
+        >
+          {['Python', 'TensorFlow', 'NLP', 'RAG', 'ML'].map((tech, i) => (
+            <motion.span
+              key={tech}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6 + i * 0.1 }}
+              className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-gray-300 hover:border-[#00f5ff]/50 hover:text-[#00f5ff] transition-all cursor-default"
+            >
+              {tech}
+            </motion.span>
+          ))}
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full px-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4"
         >
           <motion.a
             href="#projects"
-            className="group relative px-6 sm:px-8 py-2.5 sm:py-3 rounded-full overflow-hidden w-full sm:w-auto text-center"
+            className="group relative px-6 sm:px-8 py-2.5 sm:py-3 rounded-full overflow-hidden w-full sm:w-auto"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[#00f5ff] to-[#b026ff]" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#b026ff] to-[#ff2d95] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative text-black font-semibold flex items-center justify-center gap-2">
+            <span className="relative text-black font-semibold flex items-center justify-center gap-2 text-sm sm:text-base">
               <Terminal className="w-4 h-4" />
               View Projects
             </span>
           </motion.a>
           <motion.a
             href="#contact"
-            className="group px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-white/20 text-white hover:border-[#00f5ff]/50 transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm bg-white/5 w-full sm:w-auto"
+            className="group px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-white/20 text-white hover:border-[#00f5ff]/50 transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm bg-white/5 w-full sm:w-auto text-sm sm:text-base"
             whileHover={{ scale: 1.05, backgroundColor: 'rgba(0, 245, 255, 0.1)' }}
             whileTap={{ scale: 0.95 }}
           >
@@ -481,21 +546,22 @@ const HeroSection = () => {
           </motion.a>
         </motion.div>
 
+        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-10 sm:mt-16"
+          className="mt-8 sm:mt-12"
         >
           <motion.div
-            animate={{ y: [0, 10, 0] }}
+            animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
             className="cursor-pointer"
             onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
           >
             <div className="w-6 h-10 rounded-full border-2 border-[#00f5ff]/30 flex items-start justify-center p-2 mx-auto">
               <motion.div
-                animate={{ y: [0, 8, 0] }}
+                animate={{ y: [0, 6, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
                 className="w-1.5 h-1.5 rounded-full bg-[#00f5ff]"
               />
