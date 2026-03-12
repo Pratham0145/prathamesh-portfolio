@@ -28,19 +28,19 @@ const CONFIG = {
 
 // Apple-style cinematic camera settings
 const CAMERA_SETTINGS = {
-  startZ: 0.4,
+  startZ: 2.6,
   endZ: 4.5,
-  startY: 1.6,
+  startY: 1.2,
   endY: 1.0,
   startX: 0,
   endX: 0.3,
-  fov: 50,
+  fov: 45
 }
 
-// Model settings
+// Model settings for proper scaling
 const MODEL_SETTINGS = {
-  scale: 2.5,
-  faceOffset: 1.5,
+  scale: 1.8,
+  faceOffset: 1.25
 }
 
 // Animation settings
